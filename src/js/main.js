@@ -4,18 +4,27 @@ const headersEl = document.getElementById('headers');
 const configEl = document.getElementById('config');
 
 const get = () => {
-	// Envia uma requisição post
-	axios.get('https://jsonplaceholder.typicode.com/posts', {
+	const config = {
 		params: {
 			_limit: 2
 		}
-	}).then((response) => {
-		renderOutput(response)
-	});
+	}
+
+	// Envia uma requisição get
+	axios.get('https://jsonplaceholder.typicode.com/posts', config)
+		.then((response) => renderOutput(response));
 }
 
 const post = () => {
-	console.log('post');
+	const data = {
+		title: 'foo',
+		body: 'bar',
+		userId: 1,
+	}
+
+	// Envia uma requisição post
+	axios.post('https://jsonplaceholder.typicode.com/posts', data)
+		.then((response) => renderOutput(response))
 }
 
 const put = () => {
