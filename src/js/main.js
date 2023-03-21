@@ -10,7 +10,8 @@ const get = () => {
 		}
 	}
 
-	// Envia uma requisição get
+	// Envia uma requisição get (200)
+	// O GET retornda todos os dados do endpoint
 	axios.get('https://jsonplaceholder.typicode.com/posts', config)
 		.then((response) => renderOutput(response));
 }
@@ -22,21 +23,41 @@ const post = () => {
 		userId: 1,
 	}
 
-	// Envia uma requisição post
+	// Envia uma requisição post (201)
+	// O POST cria uma novo dado
 	axios.post('https://jsonplaceholder.typicode.com/posts', data)
 		.then((response) => renderOutput(response))
 }
 
 const put = () => {
-	console.log('put');
+	const data = {
+		title: 'fooNewValue',
+		body: 'barNewValue',
+		userId: 1,
+	}
+
+	// Envia uma requisição put (200)
+	// O PUT é indicado para atualizações de TODOS OS CAMPOS do payload (replace)
+	axios.put('https://jsonplaceholder.typicode.com/posts/1', data)
+		.then((response) => renderOutput(response))
 }
 
 const patch = () => {
-	console.log('patch');
+	const data = {
+		body: 'barNewValue',
+	}
+
+	// Envia uma requisição patch (200)
+	// O PATCH é indicado para atualização de APENAS UM CAMPO do payload
+	axios.patch('https://jsonplaceholder.typicode.com/posts/1', data)
+		.then((response) => renderOutput(response))
 }
 
 const del = () => {
-	console.log('delete');
+	// Envia uma requisição delete (200)
+	// O DELETE é usado para deletar dados
+	axios.delete('https://jsonplaceholder.typicode.com/posts/2')
+		.then((response) => renderOutput(response))
 }
 
 const multiple = () => {
