@@ -64,16 +64,35 @@ const multiple = () => {
 	Promise.all([
 		axios.get('https://jsonplaceholder.typicode.com/posts?_limit=5'),
 		axios.get('https://jsonplaceholder.typicode.com/users?_limit=5')
-	]
-	)
-		.then((response) => {
-			console.table(response[0].data)
-			console.table(response[1].data)
-		})
+	]).then((response) => {
+		console.table(response[0].data)
+		console.table(response[1].data)
+	})
 }
 
 const transform = () => {
-	console.log('transform');
+	const config = {
+		params: {
+			_limit: 10
+		},
+		// Transforma dados da response
+		transformResponse: [function (data) {
+			const payload = JSON.parse(data).map(item => {
+				return {
+					...item,
+					author: 'Jon Snow',
+					isSelected: false
+				}
+			})
+
+			return payload
+		}]
+	}
+
+	// Envia uma requisição get (200)
+	// O GET retornda todos os dados do endpoint
+	axios.get('https://jsonplaceholder.typicode.com/posts', config)
+		.then((response) => renderOutput(response));
 }
 
 const errorHandling = () => {
