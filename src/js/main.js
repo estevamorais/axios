@@ -122,7 +122,23 @@ const errorHandling = () => {
 }
 
 const cancel = () => {
-	console.log('cancel');
+	const controller = new AbortController();
+
+	const config = {
+		params: {
+			_limit: 2
+		},
+		signal: controller.signal
+	}
+
+	// Envia uma requisição get (200)
+	// O GET retornda todos os dados do endpoint
+	axios.get('https://jsonplaceholder.typicode.com/posts', config)
+		.then((response) => renderOutput(response))
+		.catch((error) => console.error(error));
+
+	// Ativar abort em contextos (exemplo botão, tracar de url no react, após determinado período)
+	controller.abort()
 }
 
 const clear = () => {
