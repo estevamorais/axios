@@ -3,6 +3,30 @@ const dataEl = document.getElementById('data');
 const headersEl = document.getElementById('headers');
 const configEl = document.getElementById('config');
 
+// Adiciona um interceptador nas REQUISIÇÕES
+// Muitas vezes usado para injetar o JWT em requisições
+axios.interceptors.request.use((config) => {
+	config.headers.Authorization = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c'
+	console.log(config)
+	return config;
+}, (error) => {
+	// Faz alguma coisa com o erro da requisição
+	return Promise.reject(error)
+})
+
+// Adiciona um interceptador nas REQUISIÇÕES
+axios.interceptors.response.use(function (response) {
+	// Qualquer código de status que dentro do limite de 2xx faz com que está função seja acionada
+	// Faz alguma coisa com os dados de resposta
+	console.log('Request success!')
+	return response;
+}, function (error) {
+	// Qualquer código de status que não esteja no limite do código 2xx faz com que está função seja acionada
+	// Faz alguma coisa com o erro da resposta
+	console.log('Request error!')
+	return Promise.reject(error);
+});
+
 const get = () => {
 	const config = {
 		params: {
