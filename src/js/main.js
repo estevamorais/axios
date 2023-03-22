@@ -3,6 +3,20 @@ const dataEl = document.getElementById('data');
 const headersEl = document.getElementById('headers');
 const configEl = document.getElementById('config');
 
+// Definindo nova instância do Axios
+// Ideal para ser usado quando estou multiplas APIs, nesse caso criaria uma instancia para cada API com suas devidas configurações
+const newAxios = axios.create({
+	baseURL: 'https://myapi.com',
+	headers: {
+		common: {
+			Authorization: 'TOKEN'
+		}
+	}
+})
+// OU
+newAxios.defaults.baseURL = 'https://myapi.com'
+
+
 axios.defaults.baseURL = 'https://jsonplaceholder.typicode.com';
 // axios.defaults.headers.common['Authorization'] = 'TOKEN';
 axios.defaults.headers.post['Content-Type'] = 'application/json';
