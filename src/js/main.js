@@ -3,6 +3,10 @@ const dataEl = document.getElementById('data');
 const headersEl = document.getElementById('headers');
 const configEl = document.getElementById('config');
 
+axios.defaults.baseURL = 'https://jsonplaceholder.typicode.com';
+// axios.defaults.headers.common['Authorization'] = 'TOKEN';
+axios.defaults.headers.post['Content-Type'] = 'application/json';
+
 // Adiciona um interceptador nas REQUISIÇÕES
 // Muitas vezes usado para injetar o JWT em requisições
 axios.interceptors.request.use((config) => {
@@ -36,7 +40,7 @@ const get = () => {
 
 	// Envia uma requisição get (200)
 	// O GET retornda todos os dados do endpoint
-	axios.get('https://jsonplaceholder.typicode.com/posts', config)
+	axios.get('https://jsonplaceholder.typicode.com/users', config)
 		.then((response) => renderOutput(response));
 }
 
@@ -49,7 +53,7 @@ const post = () => {
 
 	// Envia uma requisição post (201)
 	// O POST cria uma novo dado
-	axios.post('https://jsonplaceholder.typicode.com/posts', data)
+	axios.post('posts', data)
 		.then((response) => renderOutput(response))
 }
 
@@ -62,7 +66,7 @@ const put = () => {
 
 	// Envia uma requisição put (200)
 	// O PUT é indicado para atualizações de TODOS OS CAMPOS do payload (replace)
-	axios.put('https://jsonplaceholder.typicode.com/posts/1', data)
+	axios.put('posts/1', data)
 		.then((response) => renderOutput(response))
 }
 
@@ -73,21 +77,21 @@ const patch = () => {
 
 	// Envia uma requisição patch (200)
 	// O PATCH é indicado para atualização de APENAS UM CAMPO do payload
-	axios.patch('https://jsonplaceholder.typicode.com/posts/1', data)
+	axios.patch('posts/1', data)
 		.then((response) => renderOutput(response))
 }
 
 const del = () => {
 	// Envia uma requisição delete (200)
 	// O DELETE é usado para deletar dados
-	axios.delete('https://jsonplaceholder.typicode.com/posts/2')
+	axios.delete('posts/2')
 		.then((response) => renderOutput(response))
 }
 
 const multiple = () => {
 	Promise.all([
-		axios.get('https://jsonplaceholder.typicode.com/posts?_limit=5'),
-		axios.get('https://jsonplaceholder.typicode.com/users?_limit=5')
+		axios.get('posts?_limit=5'),
+		axios.get('users?_limit=5')
 	]).then((response) => {
 		console.table(response[0].data)
 		console.table(response[1].data)
@@ -115,13 +119,13 @@ const transform = () => {
 
 	// Envia uma requisição get (200)
 	// O GET retornda todos os dados do endpoint
-	axios.get('https://jsonplaceholder.typicode.com/posts', config)
+	axios.get('posts', config)
 		.then((response) => renderOutput(response));
 }
 
 const errorHandling = () => {
 	// Forçando error (404)
-	axios.get('https://jsonplaceholder.typicode.com/forceerror')
+	axios.get('forceerror')
 		.then((response) => renderOutput(response))
 		.catch((error) => {
 			renderOutput(error)
@@ -157,7 +161,7 @@ const cancel = () => {
 
 	// Envia uma requisição get (200)
 	// O GET retornda todos os dados do endpoint
-	axios.get('https://jsonplaceholder.typicode.com/posts', config)
+	axios.get('posts', config)
 		.then((response) => renderOutput(response))
 		.catch((error) => console.error(error));
 
